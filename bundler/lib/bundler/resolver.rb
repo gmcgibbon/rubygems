@@ -107,9 +107,8 @@ module Bundler
     end
 
     def search_for(dependency_proxy)
-      platform = dependency_proxy.__platform
-      dependency = dependency_proxy.dep
       @search_for[dependency_proxy] ||= begin
+        dependency = dependency_proxy.dep
         name = dependency.name
         index = index_for(dependency)
         results = index.search(dependency, @base[name])
@@ -151,6 +150,7 @@ module Bundler
         else
           @gem_version_promoter.sort_versions(dependency, spec_groups)
         end
+        platform = dependency_proxy.__platform
         selected_sgs = []
         search.each do |sg|
           next unless sg.for?(platform)
