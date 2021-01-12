@@ -42,11 +42,10 @@ module Bundler
 
     def select_best_platform_match(specs, platform)
       matching = specs.select {|spec| spec.match_platform(platform) }
-      exact = matching.select {|spec| spec.platform == platform }
-      return exact if exact.any?
 
       sorted_matching = matching.sort_by {|spec| platform_specificity_match(spec.platform, platform) }
       exemplary_spec = sorted_matching.first
+      return [exemplary_spec] unless platform != Gem::Platform::RUBY && platform.os =="darwin" && platform.version.nil?
 
       sorted_matching.take_while{|spec| same_specificity(platform, spec, exemplary_spec) && same_deps(spec, exemplary_spec) }
     end
