@@ -16,13 +16,13 @@ x-runtime: 0.006909
 strict-transport-security: max-age=31536000
 x-backend: F_Rails 54.214.179.27:443
 accept-ranges: bytes
-date: Thu, 07 Jan 2021 19:37:54 GMT
+date: Thu, 14 Jan 2021 23:41:01 GMT
 via: 1.1 varnish
-age: 488
-x-served-by: cache-mad22073-MAD
+age: 1530
+x-served-by: cache-mad22058-MAD
 x-cache: HIT
 x-cache-hits: 1
-x-timer: S1610048274.480192,VS0,VE1
+x-timer: S1610667662.852467,VS0,VE0
 vary: Accept-Encoding,Fastly-SSL
 server: RubyGems.org
 

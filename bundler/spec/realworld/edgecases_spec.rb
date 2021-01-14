@@ -451,9 +451,9 @@ RSpec.describe "real world edgecases", :realworld => true do
     bundle :lock, :env => { "DEBUG_RESOLVER" => "1" }
 
     if Bundler.feature_flag.bundler_3_mode?
-      expect(out).to display_total_steps_of(1336)
+      expect(out).to display_total_steps_of(6488)
     else
-      expect(out).to display_total_steps_of(1395)
+      expect(out).to display_total_steps_of(6827)
     end
   end
 
@@ -477,9 +477,9 @@ RSpec.describe "real world edgecases", :realworld => true do
     bundle :lock, :env => { "DEBUG_RESOLVER" => "1" }
 
     if Bundler.feature_flag.bundler_3_mode?
-      expect(out).to display_total_steps_of(366)
+      expect(out).to display_total_steps_of(368)
     else
-      expect(out).to display_total_steps_of(372)
+      expect(out).to display_total_steps_of(374)
     end
   end
 

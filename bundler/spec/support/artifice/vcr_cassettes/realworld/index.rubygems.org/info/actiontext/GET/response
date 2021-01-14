@@ -1,6 +1,6 @@
 HTTP/1.1 200 OK
 connection: keep-alive
-content-length: 4813
+content-length: 5009
 content-type: text/plain; charset=utf-8
 x-frame-options: SAMEORIGIN
 x-xss-protection: 1; mode=block
@@ -8,21 +8,21 @@ x-content-type-options: nosniff
 x-download-options: noopen
 x-permitted-cross-domain-policies: none
 referrer-policy: strict-origin-when-cross-origin
-etag: "0a4960b7c1e6103daeb9c0456336accc"
-last-modified: Mon, 14 Dec 2020 17:19:11 GMT
+etag: "e2c3b6a83648a03762f85c809cbf51d3"
+last-modified: Thu, 07 Jan 2021 23:00:16 GMT
 cache-control: max-age=60, public
-x-request-id: d2daeb5a-ba3d-48c9-aa8b-122332239a4a
-x-runtime: 0.009023
+x-request-id: 259b1d53-ae62-4b4e-9dc7-584dee60fbe1
+x-runtime: 0.007508
 strict-transport-security: max-age=31536000
-x-backend: F_Rails 44.240.15.233:443
+x-backend: F_Rails 54.214.179.27:443
 accept-ranges: bytes
-date: Thu, 07 Jan 2021 19:37:54 GMT
+date: Thu, 14 Jan 2021 23:41:00 GMT
 via: 1.1 varnish
-age: 488
-x-served-by: cache-mad22052-MAD
+age: 1530
+x-served-by: cache-mad22074-MAD
 x-cache: HIT
 x-cache-hits: 1
-x-timer: S1610048274.404146,VS0,VE1
+x-timer: S1610667661.885678,VS0,VE1
 vary: Accept-Encoding,Fastly-SSL
 server: RubyGems.org
 
@@ -49,3 +49,4 @@ server: RubyGems.org
 6.1.0.rc1 actionpack:= 6.1.0.rc1,activerecord:= 6.1.0.rc1,activestorage:= 6.1.0.rc1,activesupport:= 6.1.0.rc1,nokogiri:>= 1.8.5|checksum:958da89281f23b43a52a49ba0e688e46bea65fba332856a7422f9bfaeccbedc0,ruby:>= 2.5.0,rubygems:> 1.3.1
 6.1.0.rc2 actionpack:= 6.1.0.rc2,activerecord:= 6.1.0.rc2,activestorage:= 6.1.0.rc2,activesupport:= 6.1.0.rc2,nokogiri:>= 1.8.5|checksum:4dd89c846b2ccbd03d660eaf5a0397131fc51b65c57d3a4a2d1ee0aa3582078a,ruby:>= 2.5.0,rubygems:> 1.3.1
 6.1.0 actionpack:= 6.1.0,activerecord:= 6.1.0,activestorage:= 6.1.0,activesupport:= 6.1.0,nokogiri:>= 1.8.5|checksum:8de7c11dc6568db467f3f22725233915b7ac72be51ad77f4e5601ecc3ed8afa5,ruby:>= 2.5.0
+6.1.1 actionpack:= 6.1.1,activerecord:= 6.1.1,activestorage:= 6.1.1,activesupport:= 6.1.1,nokogiri:>= 1.8.5|checksum:6e749845fca914cf0ba4358d96eb8d8428b903a0192442aa9c3edfdace6c996c,ruby:>= 2.5.0

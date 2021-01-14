@@ -9,20 +9,20 @@ x-download-options: noopen
 x-permitted-cross-domain-policies: none
 referrer-policy: strict-origin-when-cross-origin
 etag: "69121397f5dcd3ced00a40afaf29dca2"
-last-modified: Sat, 05 Dec 2020 07:48:56 GMT
+last-modified: Mon, 14 Dec 2020 17:19:05 GMT
 cache-control: max-age=60, public
-x-request-id: a9cbaf7b-44c2-4119-8c8f-80429e7f7ae0
-x-runtime: 0.008417
+x-request-id: f8e0560f-1d4a-4e2d-b49f-2380f3eea41e
+x-runtime: 0.009001
 strict-transport-security: max-age=31536000
-x-backend: F_Rails 44.230.114.12:443
+x-backend: F_Rails 44.237.26.162:443
 accept-ranges: bytes
-date: Thu, 07 Jan 2021 19:38:18 GMT
+date: Thu, 14 Jan 2021 23:41:02 GMT
 via: 1.1 varnish
-age: 1014
-x-served-by: cache-mad22028-MAD
+age: 2979
+x-served-by: cache-mad22022-MAD
 x-cache: HIT
 x-cache-hits: 1
-x-timer: S1610048299.648004,VS0,VE0
+x-timer: S1610667663.918994,VS0,VE0
 vary: Accept-Encoding,Fastly-SSL
 server: RubyGems.org
 
