@@ -451,9 +451,9 @@ RSpec.describe "real world edgecases", :realworld => true do
     bundle :lock, :env => { "DEBUG_RESOLVER" => "1" }
 
     if Bundler.feature_flag.bundler_3_mode?
-      expect(out).to include("BUNDLER: Finished resolution (1336 steps)")
+      expect(out).to display_total_steps_of(1336)
     else
-      expect(out).to include("BUNDLER: Finished resolution (1395 steps)")
+      expect(out).to display_total_steps_of(1395)
     end
   end
 
@@ -477,9 +477,23 @@ RSpec.describe "real world edgecases", :realworld => true do
     bundle :lock, :env => { "DEBUG_RESOLVER" => "1" }
 
     if Bundler.feature_flag.bundler_3_mode?
-      expect(out).to include("BUNDLER: Finished resolution (366 steps)")
+      expect(out).to display_total_steps_of(366)
     else
-      expect(out).to include("BUNDLER: Finished resolution (372 steps)")
+      expect(out).to display_total_steps_of(372)
+    end
+  end
+
+  private
+
+  RSpec::Matchers.define :display_total_steps_of do |expected_steps|
+    match do |out|
+      out.include?("BUNDLER: Finished resolution (#{expected_steps} steps)")
+    end
+
+    failure_message do |out|
+      actual_steps = out.scan(/BUNDLER: Finished resolution \((\d+) steps\)/).first.first
+
+      "Expected resolution to finish in #{expected_steps} steps, but took #{actual_steps}"
     end
   end
 end
