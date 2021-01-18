@@ -54,6 +54,9 @@ end
 
 load "util/automatiek.rake"
 
+# We currently ship Molinillo 0.7.0 with patches to:
+# * Make use of `Array#-` instead of `Array#&` on hot resolution code paths because it performs a lot better.
+# * Autoload `set` usages so `set` can be supported inside Gemfiles.
 Automatiek::RakeTask.new("molinillo") do |lib|
   lib.version = "0.7.0"
   lib.download = { :github => "https://github.com/CocoaPods/Molinillo" }
