@@ -90,7 +90,7 @@ module Bundler
         end
       end
       @sources << @rubygems_aggregate unless Bundler.feature_flag.disable_multisource?
-      @specs = @specs.values.sort_by(&:identifier)
+      @specs = @specs.values.sort
       warn_for_outdated_bundler_version
     rescue ArgumentError => e
       Bundler.ui.debug(e)
@@ -224,7 +224,7 @@ module Bundler
 
         # Avoid introducing multiple copies of the same spec (caused by
         # duplicate GIT sections)
-        @specs[@current_spec.identifier] ||= @current_spec
+        @specs[@current_spec.hash] ||= @current_spec
       elsif spaces.size == 6
         version = version.split(",").map(&:strip) if version
         dep = Gem::Dependency.new(name, version)

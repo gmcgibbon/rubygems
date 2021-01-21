@@ -4,22 +4,7 @@ require_relative "match_platform"
 
 module Bundler
   class LazySpecification
-    Identifier = Struct.new(:name, :version, :platform)
-    class Identifier
-      include Comparable
-      def <=>(other)
-        return unless other.is_a?(Identifier)
-        [name, version, platform_string] <=> [other.name, other.version, other.platform_string]
-      end
-
-      protected
-
-      def platform_string
-        platform_string = platform.to_s
-        platform_string == Index::RUBY ? Index::NULL : platform_string
-      end
-    end
-
+    include Comparable
     include MatchPlatform
 
     attr_reader :name, :version, :dependencies, :platform
@@ -42,16 +27,23 @@ module Bundler
       end
     end
 
+    def <=>(other)
+      return unless other.is_a?(LazySpecification)
+      [name, version, platform_string] <=> [other.name, other.version, other.platform_string]
+    end
+
     def ==(other)
-      identifier == other.identifier
+      return false unless other.is_a?(LazySpecification)
+      name == other.name && version == other.version && platform_string == other.platform_string
     end
 
     def eql?(other)
-      identifier.eql?(other.identifier)
+      return false unless other.is_a?(LazySpecification)
+      name.eql?(other.name) && version.eql?(other.version) && platform_string.eql?(other.platform_string)
     end
 
     def hash
-      identifier.hash
+      name.hash ^ version.hash ^ platform_string.hash
     end
 
     def satisfies?(dependency)
@@ -107,13 +99,16 @@ module Bundler
       end
     end
 
-    def identifier
-      @__identifier ||= Identifier.new(name, version, platform)
-    end
-
     def git_version
       return unless source.is_a?(Bundler::Source::Git)
       " #{source.revision[0..6]}"
+    end
+
+    protected
+
+    def platform_string
+      platform_string = platform.to_s
+      platform_string == Index::RUBY ? Index::NULL : platform_string
     end
 
     private
