@@ -40,6 +40,9 @@ module Bundler
       @allow_bundler_dependency_conflicts = Bundler.feature_flag.allow_bundler_dependency_conflicts?
       @use_gvp = Bundler.feature_flag.use_gem_version_promoter_for_major_updates? || !@gem_version_promoter.major?
       @lockfile_uses_separate_rubygems_sources = Bundler.feature_flag.disable_multisource?
+
+      @variant_specific_names = []
+      @generic_names = []
     end
 
     def start(requirements)
@@ -103,14 +106,25 @@ module Bundler
     include Molinillo::SpecificationProvider
 
     def dependencies_for(specification)
-      specification.dependencies_for_activated_platforms
+      generic, variant_specific = specification.partitioned_dependencies_for_activated_platforms
+
+      all_dependencies = generic + variant_specific
+
+      if @variant_specific_names.include?(specification.name)
+        @variant_specific_names |= all_dependencies.map(&:name).reject {|name| @generic_names.include?(name) }
+      else
+        @generic_names |= generic.map(&:name)
+        @variant_specific_names |= variant_specific.map(&:name).reject {|name| @generic_names.include?(name) }
+      end
+
+      all_dependencies
     end
 
     def search_for(dependency_proxy)
       platform = dependency_proxy.__platform
       dependency = dependency_proxy.dep
-      @search_for[dependency_proxy] ||= begin
-        name = dependency.name
+      name = dependency.name
+      search_result = @search_for[dependency_proxy] ||= begin
         index = index_for(dependency)
         results = index.search(dependency, @base[name])
 
@@ -169,6 +183,21 @@ module Bundler
         end
         selected_sgs
       end
+
+      unless search_result.empty?
+        specific_dependency = @variant_specific_names.include?(name) && !@generic_names.include?(name)
+        target_platforms = specific_dependency ? [platform] : @platforms
+
+        search_result.each do |sg|
+          next if sg.activated_platforms == [Gem::Platform::RUBY]
+
+          sg.activate_platforms!(target_platforms)
+
+          @variant_specific_names |= [sg.name] if specific_dependency
+        end
+      end
+
+      search_result
     end
 
     def index_for(dependency)

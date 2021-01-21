@@ -42,12 +42,16 @@ module Bundler
 
         copied_sg = self.class.new(@all_specs)
         copied_sg.ignores_bundler_dependencies = @ignores_bundler_dependencies
-        copied_sg.activated_platforms = platforms
+        copied_sg.activate_platforms!(platforms)
         copied_sg
       end
 
       def for?(platform)
         @specs[platform].any?
+      end
+
+      def activate_platforms!(platforms)
+        @activated_platforms = platforms.select {|p| for?(p) }
       end
 
       def to_s
@@ -61,6 +65,14 @@ module Bundler
           metadata_dependencies(@specs[platform].first, platform)
         end
         dependencies.concat(metadata_dependencies).flatten
+      end
+
+      def partitioned_dependencies_for_activated_platforms
+        dependencies = dependencies_for_activated_platforms
+
+        dependencies.partition do |dep_proxy|
+          dependencies.count {|dp| dp.dep == dep_proxy.dep } == @activated_platforms.size
+        end
       end
 
       def ==(other)
